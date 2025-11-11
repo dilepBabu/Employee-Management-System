@@ -11,7 +11,7 @@ public interface PayrollRepository extends JpaRepository<Payroll,Long> {
 
 
 
-    List<Payroll> findByEmployeeId(Long employeeId);
+    List<Payroll> findByEmployeeId(Long id);
 
 
     @Query("SELECT p FROM Payroll p WHERE p.month = :month")

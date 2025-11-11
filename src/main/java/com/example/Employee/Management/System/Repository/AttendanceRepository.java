@@ -12,7 +12,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
 
 
 
-    List<Attendance> findByEMployeeId(Long id);
+    List<Attendance> findByEmployeeId(Long id);
 
 
     @Query("""
@@ -21,9 +21,9 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
     Attendance findByNameAndDate(@Param("name")String name, @Param("date") LocalDate date);
 
     @Query("""
-            SELECT a FROM Attendance a WHERE a.employee.id= :id AND a.date =:date
+            SELECT a FROM Attendance a WHERE a.employee.id= :employeeId AND a.date =:date
             """)
-    Attendance findByIdAndDate(@Param("id")Long id, @Param("date") LocalDate date);
+    Attendance findByIdAndDate(@Param("employeeId")Long employeeId, @Param("date") LocalDate date);
 
 
 }

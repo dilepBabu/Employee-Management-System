@@ -12,9 +12,10 @@ public class Leave {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
 
@@ -26,8 +27,55 @@ public class Leave {
     private LeaveTypes leaveTypes;
 
 
+
     @Enumerated(EnumType.STRING)
-    private StatusTypes statusTypes;
+    private StatusTypes status;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public LocalDate getStart_date() {
+        return start_date;
+    }
+
+    public void setStart_date(LocalDate start_date) {
+        this.start_date = start_date;
+    }
+
+    public LocalDate getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(LocalDate end_date) {
+        this.end_date = end_date;
+    }
+
+    public LeaveTypes getLeaveTypes() {
+        return leaveTypes;
+    }
+
+    public void setLeaveTypes(LeaveTypes leaveTypes) {
+        this.leaveTypes = leaveTypes;
+    }
+
+    public StatusTypes getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusTypes status) {
+        this.status = status;
+    }
 }
