@@ -12,7 +12,7 @@ public class Leave {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long leaveId;
 
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
@@ -31,12 +31,12 @@ public class Leave {
     @Enumerated(EnumType.STRING)
     private StatusTypes status;
 
-    public Long getId() {
-        return id;
+    public Long getLeaveId() {
+        return leaveId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLeaveId(Long leaveId) {
+        this.leaveId = leaveId;
     }
 
     public Employee getEmployee() {

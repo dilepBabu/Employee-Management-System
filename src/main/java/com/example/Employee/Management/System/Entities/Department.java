@@ -12,19 +12,19 @@ public class Department {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long deptid;
 
 
     private String departmentName;
 
     private String location;
 
-    public Long getId() {
-        return id;
+    public Long getDeptid() {
+        return deptid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDeptid(Long deptid) {
+        this.deptid = deptid;
     }
 
     public String getDeptname() {

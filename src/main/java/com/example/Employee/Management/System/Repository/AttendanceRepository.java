@@ -8,8 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
-
+public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
 
     List<Attendance> findByEmployeeId(Long id);
@@ -18,12 +17,12 @@ public interface AttendanceRepository extends JpaRepository<Attendance,Long> {
     @Query("""
             SELECT a FROM Attendance a WHERE a.employee.employeename= :name AND a.date =:date
             """)
-    Attendance findByNameAndDate(@Param("name")String name, @Param("date") LocalDate date);
+    Attendance findByNameAndDate(@Param("name") String name, @Param("date") LocalDate date);
 
     @Query("""
             SELECT a FROM Attendance a WHERE a.employee.id= :employeeId AND a.date =:date
             """)
-    Attendance findByIdAndDate(@Param("employeeId")Long employeeId, @Param("date") LocalDate date);
+    Attendance findByIdAndDate(@Param("employeeId") Long employeeId, @Param("date") LocalDate date);
 
 
 }

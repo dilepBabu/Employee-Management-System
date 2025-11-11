@@ -11,7 +11,7 @@ public class Attendance {
 
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long attendid;
 
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
@@ -26,11 +26,11 @@ public class Attendance {
     private LocalDateTime checkOutTime;
 
     public Long getAttendanceId() {
-        return id;
+        return attendid;
     }
 
     public void setAttendanceId(Long id) {
-        this.id = id;
+        this.attendid = id;
     }
 
     public Employee getEmployee() {
