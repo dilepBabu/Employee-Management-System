@@ -2,8 +2,14 @@ package com.example.Employee.Management.System.services.implement;
 
 import com.example.Employee.Management.System.Entities.Employee;
 import com.example.Employee.Management.System.Repository.EmployeeRepository;
+import com.example.Employee.Management.System.Securityservices.CustomeUserDetail;
+import com.example.Employee.Management.System.Securityservices.CustomeUserDetailService;
 import com.example.Employee.Management.System.services.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +21,19 @@ public class EmployeeServiceImp implements EmployeeServices {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private CustomeUserDetailService customeUserDetailService;
+
+    @Autowired
+    private Jwtservice jwtservice;
+    private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
+
     @Override
     public Employee addEmployee(Employee employee) {
+        employee.setPassword(encoder.encode(employee.getPassword()));
         return employeeRepository.save(employee);
     }
 
@@ -41,7 +58,7 @@ public class EmployeeServiceImp implements EmployeeServices {
     }
 
     @Override
-    public List<Employee> getAllEmployee(Employee employee) {
+    public List<Employee> getAllEmployee() {
         return employeeRepository.findAll();
     }
 
@@ -53,5 +70,18 @@ public class EmployeeServiceImp implements EmployeeServices {
     @Override
     public Optional<Employee> getEmployeeById(Long id) {
         return employeeRepository.findById(id);
+    }
+
+
+    public String verify(Employee employee){
+
+           Authentication authentication= authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(employee.getEmail(), employee.getPassword()));
+           final CustomeUserDetail userDetails = (CustomeUserDetail) customeUserDetailService
+                .loadUserByUsername(employee.getEmail());
+           if(authentication.isAuthenticated())
+            {
+                return jwtservice.generateToken(employee.getEmail());
+            }
+           return "failure";
     }
 }
